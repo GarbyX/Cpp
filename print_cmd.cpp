@@ -7,11 +7,15 @@ using namespace std: use names for objects and variables from the standard libra
 */
 
 int main() {
-  cout << "Hello GarbyX \n\n";
+  cout << "Hello GarbyX" << endl;
   cout << "This is a program written in C++";
   return 0;
 }
 
+/*
+Hello GarbyX!
+Ts is a program written in C++
+*/
 
 
 
