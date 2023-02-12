@@ -1,0 +1,242 @@
+// Birthday entry format: DD MM YYYY
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int DD = 32, MM = 13, YYYY = -1, NYYYY, NMM, IDAY, day, flag = 0;
+    
+    string month[] = {"January","February","March","April","May","June","July",
+                      "August","September","October","November","December"};
+
+    cin >> DD;
+    cin >> MM;
+    cin >> YYYY;
+    
+    // Scenario: no input
+    if(DD == 32 && MM == 13 && YYYY == -1)
+    {
+        cout << " Please enter your birthday in this " << endl;
+        cout << "     format(including spaces):      " << endl;
+        cout << "            DD MM YYYY              " << endl;
+        cout << "            22 01 1997              " << endl;
+        return -1;
+    }
+    
+    if(DD <= 0)
+    {
+        // Scenario: invalid input in day/month
+        if(MM <= 0)
+        {             
+            cout << " Enter month. " << endl;
+            return -1;
+        }
+        
+        // Scenario: invalid input for day
+        cout << " Enter day. " << endl;
+        return -1;
+    }
+    
+    if(MM <= 0)
+    {
+        // Scenario: invalid input for month
+        cout << " Enter month. " << endl;
+        return -1;
+    }
+    
+    if(DD > 31 || MM > 12 || YYYY <= 0)
+    {
+        if(DD > 31 && MM > 12)
+        {
+            // Scenario: invalid input for "Days", "Months" & "Years" fields
+            if(YYYY <= 0)
+            {
+                cout << " There are 12 months with maximun of 31 days " << endl;
+                cout << "       Year should be a positive number.       " << endl;
+            }
+            // Scenario: invalid input for "Days" & "Months" fields
+            else
+            {
+                cout << " There are 12 months with maximun of 31 days " << endl;
+                cout << "       Year should be a positive number.       " << endl;
+            }
+                
+        }
+        else if(DD > 31 && MM <= 12)
+        {
+            // Scenario: invalid input for days & year
+            if(YYYY <= 0)
+            {
+                cout << " There are 12 months with maximun of 31 days " << endl;
+                cout << "       Year should be a positive number.       " << endl;
+            }
+            // Scenario: invalid input for days
+            else
+            {
+                cout << " There are maximun of 31 days in a month " << endl;
+                cout << "       Year should be a positive number.       " << endl;
+            }
+                
+        }
+        else if(DD <= 31 && MM > 12)
+        {
+            // Scenario: invalid input for days & year
+            if(YYYY <= 0)
+            {
+                cout << " There are 12 months with maximun of 31 days " << endl;
+                cout << "       Year should be a positive number.       " << endl;
+            }
+            //Scenario: invalid input for month
+            {
+                cout << " There are 12 months in a year " << endl;
+                cout << "       Year should be a positive number.       " << endl;
+            }
+                
+        }
+         // Scenario: invalid input for year
+        else if(DD <= 31 && MM <= 12 && YYYY <= 0)
+        {
+            cout << " There are maximun of 31 days in a month " << endl;
+            cout << " Year cannot be null/zero or negative. " << endl;
+        }
+        return -1;
+    }
+    
+    switch(MM)
+    {
+        case 2:
+            
+            if((YYYY % 400) == 0 || ((YYYY % 4) == 0 && (YYYY % 100) != 0))
+            {
+                // Scenario: invalid day for the month "February" and the requested "Year" is a leap year.
+                if(DD > 29)
+                {
+                    cout << "  The year " << YYYY << " is a leap year. " << endl;
+                    cout << " Meaning February has up to 29 days.          " << endl;
+                    cout << " Try again! " << endl;
+                    return -1;
+                }
+            }
+            else
+            {
+                // Scenario: invalid day for the month "February" and the requested "Year" is NOT a leap year.
+                if(DD > 28)
+                {
+                    cout << " The year " << YYYY << " is not a leap year. " << endl;
+                    cout << " February cannot have more than 28 days. " << endl;
+                    cout << " Try again! " << endl;
+                    return -1;
+                }
+            }
+            break;
+            
+        case 4:
+            // Scenario: invalid day for the month "April".
+            if(DD > 30)
+            {
+                cout << " April has 30 days. " << endl;
+                cout << " Try again! " << endl;
+                return -1;
+            }
+            break;
+              
+        case 6:
+            // Scenario: invalid day for the month "June".
+            if(DD > 30)
+            {
+                cout << " June has 30 days. " << endl;
+                cout << " Try again! " << endl;
+                return -1;
+            }
+            break;
+        
+        case 9:
+            Scenario: invalid day for the month "September".
+            if(DD > 30)
+            {
+                cout << " September has 30 days. " << endl;
+                cout << " Try again! " << endl;
+                return -1;
+            }
+            break;
+            
+        case 11:
+            // Scenario: invalid day for the month "November".
+            if(DD > 30)
+            {
+                cout << " November has 30 days. " << endl;
+                cout << " Try again! " << endl;
+                return -1;
+            }
+            break;
+    }
+    
+    if(MM <= 2)
+    {
+        NYYYY = YYYY - 1;
+        NMM = 0;
+    }
+    else
+    {
+        NYYYY = YYYY;
+        NMM = (4 * MM + 23) / 10;
+    }
+    
+    // Calculating day
+    IDAY = 365 * YYYY + DD + 31 * (MM - 1) - NMM + (NYYYY / 4) - ((3 * ((NYYYY / 100) + 1) / 4));
+    
+    day = IDAY % 7;
+    
+    // To display the correct ending after the numbers 
+    if(DD != 11 && DD != 12 && DD != 13)
+        flag = DD % 10;
+    
+    switch(day)
+    {
+        case 0:
+            cout << " You were born on Saturday, ";
+            break;
+            
+        case 1:
+            cout << " You were born on Sunday, ";
+            break;
+            
+        case 2:
+            cout << " You were born on Monday, ";
+            break;
+            
+        case 3:
+            cout << " You were born on Tuesday, ";
+            break;
+            
+        case 4:
+            cout << " You were born on Wednesday, ";
+            break;
+            
+        case 5:
+            cout << " You were born on Thursday, ";
+            break;
+            
+        case 6:
+            cout << " You were born on Friday, ";
+            break;
+    }
+    
+    if(flag == 1){
+        cout << DD << "st of ";
+    }
+    else if(flag == 2){
+        cout << DD << "nd of ";
+    }
+    else if(flag == 3){
+        cout << DD << "rd of ";
+    }
+    else{
+        cout << DD << "th of ";
+    }
+    
+    cout << month[MM-1] << " of " << YYYY << "!" << endl;
+    
+    return 0;
+}
